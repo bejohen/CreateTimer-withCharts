@@ -24,12 +24,16 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         print("accuracy total : \(allAccuracy.count)")
+        getAccuracy()
+        updateGraph()
     }
     var accuracy = 0.0
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         activityTableView.delegate = self
         activityTableView.dataSource = self
+        getAccuracy()
+        updateGraph()
         do{
             activities = try context.fetch(Activity.fetchRequest())
         } catch let error as NSError {
@@ -38,6 +42,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         if TimerViewController.isRefreshed {
             self.activityTableView.reloadData()
             TimerViewController.isRefreshed = false
+            getAccuracy()
             updateGraph()
             print("accuracy total : \(allAccuracy.count)")
         }
@@ -47,6 +52,90 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("row \(activities.count)")
         return activities.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = "\(activities[indexPath.row].startTime!) \(activities[indexPath.row].estimatedTime!):00"
+        let dateFormat = DateFormatter()
+        let spentFormat = DateFormatter()
+        dateFormat.dateFormat = "HH:mm"
+        spentFormat.dateFormat = "HH:mm:ss"
+        
+        let hourFormat = DateFormatter()
+        hourFormat.dateFormat = "HH"
+        let minFormat = DateFormatter()
+        minFormat.dateFormat = "HH"
+        
+        let estimation = dateFormat.date(from: activities[indexPath.row].estimatedTime!)!
+        let spent = spentFormat.date(from: activities[indexPath.row].startTime!)!
+        var hour = Int(activities[indexPath.row].estimatedTime!.substring(to: 2)) ?? 0
+        var min = Int(getMin(getTime: activities[indexPath.row].estimatedTime!)) ?? 0
+        let estimationInt = hour * 3600 + min * 60
+        print(estimationInt)
+        
+        hour = Int(activities[indexPath.row].startTime!.substring(to: 2)) ?? 0
+        min = Int(getMin(getTime: activities[indexPath.row].startTime!)) ?? 0
+        let sec = Int(getSec(getTime: activities[indexPath.row].startTime!)) ?? 0
+        
+        print("start time \(activities[indexPath.row].startTime!), \(min), \(sec)")
+        
+        let spentInt = hour * 3600 + min * 60 + sec
+        print(spentInt)
+        if (Int(estimationInt) > Int(spentInt)) {
+            accuracy = Double(spentInt) / Double(estimationInt)
+        } else {
+            accuracy = Double(estimationInt) / Double(spentInt)
+        }
+        
+        accuracy = accuracy * 100
+        //var y = Double(round(1000*accuracy)/1000)
+        //y = y * 100
+        
+        print("spent int : \(Int(spentInt)) , estimated int : \(Int(estimationInt)), accuracy : \(accuracy)%")
+        cell.detailTextLabel?.text = ("Accuracy : \(round(accuracy))%")
+
+        //cell.detailTextLabel?.text = "\(spentFormat.string(from: comparison as Date))"
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let path = [indexPath]
+            let act = activities[indexPath.row]
+            context.delete(act)
+            appDelegate.saveContext()
+            allAccuracy.remove(at: indexPath.row)
+            refresh()
+            getAccuracy()
+            updateGraph()
+            tableView.deleteRows(at: path, with: .automatic)
+        }
+    }
+    
+    func getAccuracy() {
+        allAccuracy.removeAll()
+        for activity in activities {
+            var accuracy = 0.0
+            var hour = Int(activity.estimatedTime!.substring(to: 2)) ?? 0
+            var min = Int(getMin(getTime: activity.estimatedTime!)) ?? 0
+            let estimationInt = hour * 3600 + min * 60
+            print(estimationInt)
+            
+            hour = Int(activity.startTime!.substring(to: 2)) ?? 0
+            min = Int(getMin(getTime: activity.startTime!)) ?? 0
+            let sec = Int(getSec(getTime: activity.startTime!)) ?? 0
+            let spentInt = hour * 3600 + min * 60 + sec
+            
+            if (Int(estimationInt) > Int(spentInt)) {
+                accuracy = Double(spentInt) / Double(estimationInt)
+            } else {
+                accuracy = Double(estimationInt) / Double(spentInt)
+            }
+            accuracy = accuracy * 100
+            allAccuracy.append(round(accuracy))
+        }
+        
     }
     
     func updateGraph(){
@@ -66,70 +155,6 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         chtChart.data = data
         chtChart.chartDescription?.text = "Your Performance Results"
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "\(activities[indexPath.row].startTime!) \(activities[indexPath.row].estimatedTime!):00"
-        let dateFormat = DateFormatter()
-        let spentFormat = DateFormatter()
-        dateFormat.dateFormat = "HH:mm"
-        spentFormat.dateFormat = "HH:mm:ss"
-        
-        let hourFormat = DateFormatter()
-        hourFormat.dateFormat = "HH"
-        let minFormat = DateFormatter()
-        minFormat.dateFormat = "HH"
-        
-        let estimation = dateFormat.date(from: activities[indexPath.row].estimatedTime!)!
-        let spent = spentFormat.date(from: activities[indexPath.row].startTime!)!
-        var hour = Int(activities[indexPath.row].estimatedTime!.substring(to: 2)) ?? 0
-        //var min = Int(activities[indexPath.row].estimatedTime!.substring(with: 3..<5)) ?? 0
-        var min = Int(getMin(getTime: activities[indexPath.row].estimatedTime!)) ?? 0
-        //print(activities[indexPath.row].estimatedTime!.substring(from: 5))
-        let estimationInt = hour * 3600 + min * 60
-        print(estimationInt)
-        
-        hour = Int(activities[indexPath.row].startTime!.substring(to: 2)) ?? 0
-        min = Int(getMin(getTime: activities[indexPath.row].startTime!)) ?? 0
-        //var sec = Int(activities[indexPath.row].startTime!.substring(with: 6..<8)) ?? 1
-        let sec = Int(getSec(getTime: activities[indexPath.row].startTime!)) ?? 0
-        
-        print("start time \(activities[indexPath.row].startTime!), \(min), \(sec)")
-        
-        let spentInt = hour * 3600 + min * 60 + sec
-        print(spentInt)
-        if (Int(estimationInt) > Int(spentInt)) {
-            accuracy = Double(spentInt) / Double(estimationInt)
-        } else {
-            accuracy = Double(estimationInt) / Double(spentInt)
-        }
-        
-        accuracy = accuracy * 100
-        //var y = Double(round(1000*accuracy)/1000)
-        //y = y * 100
-        
-        allAccuracy.append(round(accuracy))
-        
-        print("spent int : \(Int(spentInt)) , estimated int : \(Int(estimationInt)), accuracy : \(accuracy)%")
-        cell.detailTextLabel?.text = ("Accuracy : \(round(accuracy))%")
-        
-        updateGraph()
-        //cell.detailTextLabel?.text = "\(spentFormat.string(from: comparison as Date))"
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let path = [indexPath]
-            let act = activities[indexPath.row]
-            context.delete(act)
-            appDelegate.saveContext()
-            allAccuracy.remove(at: indexPath.row)
-            refresh()
-            updateGraph()
-            tableView.deleteRows(at: path, with: .automatic)
-        }
     }
     
     private func refresh() {
