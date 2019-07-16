@@ -14,6 +14,7 @@ class TimerViewController: UIViewController {
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var timePicker: UIDatePicker!
     @IBOutlet weak var timeEstimation: UILabel!
+    @IBOutlet weak var timerProgress: CircularProgressBar!
     
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -23,7 +24,7 @@ class TimerViewController: UIViewController {
     var seconds = 0
     var timer = Timer()
     var isTimerRunning = false
-    var estimationInt = 0
+    var estimationInt = 60
     var spentInt = 0
     
     
@@ -36,6 +37,8 @@ class TimerViewController: UIViewController {
         
         timePicker.date = date!
         // Do any additional setup after loading the view.
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,11 +63,17 @@ class TimerViewController: UIViewController {
         let hour = Int(hourFormat.string(from: timePicker.date)) ?? 0
         let min = Int(minFormat.string(from: timePicker.date)) ?? 1
         estimationInt = (hour * 3600) + (min * 60)
-        print("estimation : \(estimationInt)")
+//        print("estimation : \(estimationInt)")
     }
+    
     @objc func updateTimer() {
         seconds += 1     //This will decrement(count down)the seconds.
         timerLabel.text = timeString(time: TimeInterval(seconds)) //This will update the label.
+        
+        let progress = Double(seconds)/Double(estimationInt)
+        if progress <= 1 {
+            timerProgress.setProgress(to: progress, withAnimation: false)
+        }
     }
     
     @IBAction func startButtonTapped(_ sender: UIButton) {
@@ -72,13 +81,29 @@ class TimerViewController: UIViewController {
             runTimer()
             isTimerRunning = true
             startButton.setTitle("Pause", for: .normal)
+            timerProgress.labelSize = 0
+            timerProgress.safePercent = 80
+            timerProgress.lineWidth = 20
         } else {
-            timer.invalidate()
-            addActivity()
-            refresh()
-            TimerViewController.isRefreshed = true
-            isTimerRunning = false
-            startButton.setTitle("Resume", for: .normal)
+            let alert = UIAlertController(title: "Cancel timer", message: "What's the reason?", preferredStyle: .alert)
+            
+            alert.addTextField(configurationHandler: { textField in
+                textField.placeholder = "Input your reason here"
+            })
+            
+            alert.addAction(UIAlertAction(title: "Back", style: .cancel, handler: nil))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { action in
+                self.timer.invalidate()
+                self.addActivity()
+                self.refresh()
+                TimerViewController.isRefreshed = true
+                self.isTimerRunning = false
+                self.startButton.setTitle("Resume", for: .normal)
+            }))
+            
+            
+            self.present(alert, animated: true)
             
         }
     }
@@ -89,6 +114,7 @@ class TimerViewController: UIViewController {
         let seconds = Int(time) % 60
         return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
     }
+    
     //adding activity to coreData
     @IBAction func addActivity() {
         let activity = Activity(entity: Activity.entity(), insertInto: context)
@@ -96,6 +122,7 @@ class TimerViewController: UIViewController {
         let hourFormat = DateFormatter()
         hourFormat.dateFormat = "HH:mm"
         let estimated = hourFormat.string(from: timePicker.date)
+        
         activity.id = 1
         activity.name = "\(name)"
         activity.startTime = "\(String(describing: timerLabel.text!))"

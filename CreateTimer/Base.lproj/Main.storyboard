@@ -93,7 +93,7 @@
                                     <action selector="timePickerChanged:" destination="VTH-6T-1Tc" eventType="valueChanged" id="6ph-oV-FlJ"/>
                                 </connections>
                             </datePicker>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7LT-jI-TEv">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00 H 01 m" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7LT-jI-TEv">
                                 <rect key="frame" x="116" y="570" width="183" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -109,6 +109,11 @@
                                     <action selector="startButtonTapped:" destination="VTH-6T-1Tc" eventType="touchUpInside" id="xUH-5t-AFH"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CqA-bN-6g3" customClass="CircularProgressBar" customModule="CreateTimer" customModuleProvider="target">
+                                <rect key="frame" x="122" y="614" width="171" height="171"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="sSL-Uq-Vvo"/>
@@ -119,11 +124,12 @@
                         <outlet property="timeEstimation" destination="7LT-jI-TEv" id="OeK-hV-HGK"/>
                         <outlet property="timePicker" destination="fHA-C1-6jr" id="ykr-lV-yYk"/>
                         <outlet property="timerLabel" destination="0ob-WO-Qn2" id="fDU-em-QN6"/>
+                        <outlet property="timerProgress" destination="CqA-bN-6g3" id="xU4-3w-8Ct"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Qs-Wb-J4l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="30" y="-209"/>
+            <point key="canvasLocation" x="28.985507246376812" y="-209.59821428571428"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="h08-M3-Ph2">
