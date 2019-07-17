@@ -2,17 +2,30 @@ PODS:
   - Charts (3.3.0):
     - Charts/Core (= 3.3.0)
   - Charts/Core (3.3.0)
+  - OnboardKit (1.4.2)
 
 DEPENDENCIES:
   - Charts
+  - OnboardKit (from `https://github.com/NikolaKirev/OnboardKit.git`, branch `master`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Charts
 
+EXTERNAL SOURCES:
+  OnboardKit:
+    :branch: master
+    :git: https://github.com/NikolaKirev/OnboardKit.git
+
+CHECKOUT OPTIONS:
+  OnboardKit:
+    :commit: bdbdeb4b16e10d32873a10d4abd8cc1b07ed9085
+    :git: https://github.com/NikolaKirev/OnboardKit.git
+
 SPEC CHECKSUMS:
   Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
+  OnboardKit: 38aedb98149aefe76911d6492a3f1d89cfa41876
 
-PODFILE CHECKSUM: 3e732b0f8289d0858fce973a2e9892f8019fbd10
+PODFILE CHECKSUM: 3ed6bb4c663ae68ce18ff5623524ec4c0df776df
 
 COCOAPODS: 1.7.4

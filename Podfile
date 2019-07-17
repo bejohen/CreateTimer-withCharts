@@ -7,5 +7,6 @@ target 'CreateTimer' do
 
   # Pods for CreateTimer
   pod 'Charts'
+  pod 'OnboardKit', :git => 'https://github.com/NikolaKirev/OnboardKit.git', :branch => 'master'
 
 end

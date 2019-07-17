@@ -16,8 +16,8 @@
 		0D7B788D22CCCD2D00384DBD /* Activity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7B788B22CCCD2D00384DBD /* Activity+CoreDataClass.swift */; };
 		0D7B788E22CCCD2D00384DBD /* Activity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7B788C22CCCD2D00384DBD /* Activity+CoreDataProperties.swift */; };
 		0D7B789022CCDB0700384DBD /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7B788F22CCDB0700384DBD /* TableViewController.swift */; };
+		C20E6983D29C363E6B19711F /* Pods_CreateTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BA966F96E4CCD57751C786 /* Pods_CreateTimer.framework */; };
 		F7BE547722DC64DB0077B6AC /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BE547622DC64DB0077B6AC /* CircularProgressBar.swift */; };
-		FA20603D9EC7F59AF5431615 /* Pods_CreateTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A99B8388D4053A3B90EE3ED /* Pods_CreateTimer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,9 +32,9 @@
 		0D7B788B22CCCD2D00384DBD /* Activity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Activity+CoreDataClass.swift"; path = "CreateTimer/Activity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0D7B788C22CCCD2D00384DBD /* Activity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Activity+CoreDataProperties.swift"; path = "CreateTimer/Activity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0D7B788F22CCDB0700384DBD /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
-		1F4BA1439DF0B15AA049B875 /* Pods-CreateTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreateTimer.debug.xcconfig"; path = "Target Support Files/Pods-CreateTimer/Pods-CreateTimer.debug.xcconfig"; sourceTree = "<group>"; };
-		2A99B8388D4053A3B90EE3ED /* Pods_CreateTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CreateTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F500EAFB94FD135F3ED9E5DD /* Pods-CreateTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreateTimer.release.xcconfig"; path = "Target Support Files/Pods-CreateTimer/Pods-CreateTimer.release.xcconfig"; sourceTree = "<group>"; };
+		5C7963009D9BB54A48892A33 /* Pods-CreateTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreateTimer.release.xcconfig"; path = "Target Support Files/Pods-CreateTimer/Pods-CreateTimer.release.xcconfig"; sourceTree = "<group>"; };
+		840B18B6540317DC358B84EB /* Pods-CreateTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreateTimer.debug.xcconfig"; path = "Target Support Files/Pods-CreateTimer/Pods-CreateTimer.debug.xcconfig"; sourceTree = "<group>"; };
+		D7BA966F96E4CCD57751C786 /* Pods_CreateTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CreateTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7BE547622DC64DB0077B6AC /* CircularProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -43,7 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA20603D9EC7F59AF5431615 /* Pods_CreateTimer.framework in Frameworks */,
+				C20E6983D29C363E6B19711F /* Pods_CreateTimer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,7 +58,7 @@
 				0D7B787422CC61A600384DBD /* CreateTimer */,
 				0D7B787322CC61A600384DBD /* Products */,
 				4ACABC97377F0FAC19B86487 /* Pods */,
-				B433DBE9C3FBD9F82C8E6F10 /* Frameworks */,
+				ED9465436AE2F4B091A97351 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,16 +97,16 @@
 		4ACABC97377F0FAC19B86487 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1F4BA1439DF0B15AA049B875 /* Pods-CreateTimer.debug.xcconfig */,
-				F500EAFB94FD135F3ED9E5DD /* Pods-CreateTimer.release.xcconfig */,
+				840B18B6540317DC358B84EB /* Pods-CreateTimer.debug.xcconfig */,
+				5C7963009D9BB54A48892A33 /* Pods-CreateTimer.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		B433DBE9C3FBD9F82C8E6F10 /* Frameworks */ = {
+		ED9465436AE2F4B091A97351 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2A99B8388D4053A3B90EE3ED /* Pods_CreateTimer.framework */,
+				D7BA966F96E4CCD57751C786 /* Pods_CreateTimer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -118,11 +118,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0D7B788422CC61A700384DBD /* Build configuration list for PBXNativeTarget "CreateTimer" */;
 			buildPhases = (
-				FBCFD51D7412C26C0B6CAA03 /* [CP] Check Pods Manifest.lock */,
+				6C8CA06F7E476C93996AF141 /* [CP] Check Pods Manifest.lock */,
 				0D7B786E22CC61A600384DBD /* Sources */,
 				0D7B786F22CC61A600384DBD /* Frameworks */,
 				0D7B787022CC61A600384DBD /* Resources */,
-				E08780A532B80F7CE0759F02 /* [CP] Embed Pods Frameworks */,
+				ABDFC5966A87CE5B22D31531 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -180,24 +180,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		E08780A532B80F7CE0759F02 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CreateTimer/Pods-CreateTimer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CreateTimer/Pods-CreateTimer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CreateTimer/Pods-CreateTimer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FBCFD51D7412C26C0B6CAA03 /* [CP] Check Pods Manifest.lock */ = {
+		6C8CA06F7E476C93996AF141 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -217,6 +200,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ABDFC5966A87CE5B22D31531 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CreateTimer/Pods-CreateTimer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CreateTimer/Pods-CreateTimer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CreateTimer/Pods-CreateTimer-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -376,7 +376,7 @@
 		};
 		0D7B788522CC61A700384DBD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1F4BA1439DF0B15AA049B875 /* Pods-CreateTimer.debug.xcconfig */;
+			baseConfigurationReference = 840B18B6540317DC358B84EB /* Pods-CreateTimer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -395,7 +395,7 @@
 		};
 		0D7B788622CC61A700384DBD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F500EAFB94FD135F3ED9E5DD /* Pods-CreateTimer.release.xcconfig */;
+			baseConfigurationReference = 5C7963009D9BB54A48892A33 /* Pods-CreateTimer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

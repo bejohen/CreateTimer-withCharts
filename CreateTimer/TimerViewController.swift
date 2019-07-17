@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import OnboardKit
 
 class TimerViewController: UIViewController {
 
@@ -50,6 +51,14 @@ class TimerViewController: UIViewController {
         }
     }
     
+    var onboardShown = false
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !onboardShown {
+            self.showOnboarding()
+            onboardShown = true
+        }
+    }
     func runTimer() {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(TimerViewController.updateTimer)), userInfo: nil, repeats: true)
     }
@@ -78,6 +87,7 @@ class TimerViewController: UIViewController {
     
     @IBAction func startButtonTapped(_ sender: UIButton) {
         if (!isTimerRunning) {
+//            self.showOnboarding()
             runTimer()
             isTimerRunning = true
             startButton.setTitle("Pause", for: .normal)
@@ -141,5 +151,45 @@ class TimerViewController: UIViewController {
         
     }
     
+    lazy var onboardingPages: [OnboardPage] = {
+        let pageOne = OnboardPage(title: "Welcome!",
+                                  imageName: "Ikont",
+                                  description: "### is a timer to help you improve your estimation",
+                                  advanceButtonTitle: "")
+        
+        let pageTwo = OnboardPage(title: "Setup timer",
+                                  imageName: "HandSlider",
+                                  description: "Set your estimation of how long it would take for you to do your task.",
+                                  advanceButtonTitle: "")
+        
+        let pageThree = OnboardPage(title: "Finish timer",
+                                    imageName: "OtherClock",
+                                    description: "Just tap the Finish button when you're done with your task. Remember, your task is independent from your timer.",
+                                    advanceButtonTitle: "")
+        
+        let pageFour = OnboardPage(title: "Check your statistics",
+                                   imageName: "Chart",
+                                   description: "You can check your performance and history in the statistics tab.",
+                                   advanceButtonTitle: ""
+            //                                   advanceButtonTitle: "Decide Later",
+            //                                   actionButtonTitle: "Enable Notifications",
+            //                                   action: { [weak self] completion in
+            //                                    self?.showAlert(completion)
+            //        }
+        )
+        
+        let pageFive = OnboardPage(title: "All Ready",
+                                   imageName: "Ikont",
+                                   description: "You are all set up and ready to use ###. Begin by estimating your first task!",
+                                   advanceButtonTitle: "Done")
+        
+        return [pageOne, pageTwo, pageThree, pageFour, pageFive]
+    }()
+    
+    func showOnboarding(){
+        let onboardingVC = OnboardViewController(pageItems: onboardingPages)
+        onboardingVC.modalPresentationStyle = .formSheet
+        onboardingVC.presentFrom(self, animated: true)
+    }
+    
 }
-
