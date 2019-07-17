@@ -7,7 +7,10 @@
 # CocoaPods - Only use to conserve bandwidth / Save time on Pushing
 #           - Also handy if you have a large number of dependant pods
 #           - AS PER https://guides.cocoapods.org/using/using-cocoapods.html NEVER IGNORE THE LOCK FILE
-Pods/
-build/
+Pods
+build
+Podfile.lock
+CreateTimer.xcworkspace
+CreateTimer.xcodeproj/xcuserdata
 
 # End of https://www.gitignore.io/api/cocoapods
