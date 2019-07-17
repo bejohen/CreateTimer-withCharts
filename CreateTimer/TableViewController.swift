@@ -21,6 +21,8 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     private var activities = [Activity]()
     private var allAccuracy = [Double]()
     private var fetchedRC: NSFetchedResultsController<Activity>!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("accuracy total : \(allAccuracy.count)")
@@ -56,7 +58,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "\(activities[indexPath.row].startTime!) \(activities[indexPath.row].estimatedTime!):00"
+        cell.textLabel?.text = "\(activities[indexPath.row].spendTime!) \(activities[indexPath.row].estimatedTime!):00"
         let dateFormat = DateFormatter()
         let spentFormat = DateFormatter()
         dateFormat.dateFormat = "HH:mm"
@@ -68,17 +70,17 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         minFormat.dateFormat = "HH"
         
         let estimation = dateFormat.date(from: activities[indexPath.row].estimatedTime!)!
-        let spent = spentFormat.date(from: activities[indexPath.row].startTime!)!
+        let spent = spentFormat.date(from: activities[indexPath.row].spendTime!)!
         var hour = Int(activities[indexPath.row].estimatedTime!.substring(to: 2)) ?? 0
         var min = Int(getMin(getTime: activities[indexPath.row].estimatedTime!)) ?? 0
         let estimationInt = hour * 3600 + min * 60
         print(estimationInt)
         
-        hour = Int(activities[indexPath.row].startTime!.substring(to: 2)) ?? 0
-        min = Int(getMin(getTime: activities[indexPath.row].startTime!)) ?? 0
-        let sec = Int(getSec(getTime: activities[indexPath.row].startTime!)) ?? 0
+        hour = Int(activities[indexPath.row].spendTime!.substring(to: 2)) ?? 0
+        min = Int(getMin(getTime: activities[indexPath.row].spendTime!)) ?? 0
+        let sec = Int(getSec(getTime: activities[indexPath.row].spendTime!)) ?? 0
         
-        print("start time \(activities[indexPath.row].startTime!), \(min), \(sec)")
+        print("start time \(activities[indexPath.row].spendTime!), \(min), \(sec)")
         
         let spentInt = hour * 3600 + min * 60 + sec
         print(spentInt)
@@ -113,6 +115,8 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
     }
     
+    
+    
     func getAccuracy() {
         allAccuracy.removeAll()
         for activity in activities {
@@ -122,9 +126,9 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
             let estimationInt = hour * 3600 + min * 60
             print(estimationInt)
             
-            hour = Int(activity.startTime!.substring(to: 2)) ?? 0
-            min = Int(getMin(getTime: activity.startTime!)) ?? 0
-            let sec = Int(getSec(getTime: activity.startTime!)) ?? 0
+            hour = Int(activity.spendTime!.substring(to: 2)) ?? 0
+            min = Int(getMin(getTime: activity.spendTime!)) ?? 0
+            let sec = Int(getSec(getTime: activity.spendTime!)) ?? 0
             let spentInt = hour * 3600 + min * 60 + sec
             
             if (Int(estimationInt) > Int(spentInt)) {
@@ -136,6 +140,20 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
             allAccuracy.append(round(accuracy))
         }
         
+    }
+    
+    func deleteAllData()
+    {
+        do
+        {
+            activities = try context.fetch(Activity.fetchRequest())
+            for activity in activities
+            {
+                context.delete(activity)
+            }
+        } catch let error as NSError {
+            print("Detele all data in activity error : \(error) \(error.userInfo)")
+        }
     }
     
     func updateGraph(){

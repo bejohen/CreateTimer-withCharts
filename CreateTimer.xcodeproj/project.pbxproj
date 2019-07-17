@@ -14,9 +14,9 @@
 		0D7B788022CC61A700384DBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D7B787E22CC61A700384DBD /* LaunchScreen.storyboard */; };
 		0D7B788A22CCCBA700384DBD /* CreateTimer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D7B788822CCCBA700384DBD /* CreateTimer.xcdatamodeld */; };
 		0D7B788D22CCCD2D00384DBD /* Activity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7B788B22CCCD2D00384DBD /* Activity+CoreDataClass.swift */; };
-		0D7B788E22CCCD2D00384DBD /* Activity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7B788C22CCCD2D00384DBD /* Activity+CoreDataProperties.swift */; };
 		0D7B789022CCDB0700384DBD /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7B788F22CCDB0700384DBD /* TableViewController.swift */; };
 		F7BE547722DC64DB0077B6AC /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BE547622DC64DB0077B6AC /* CircularProgressBar.swift */; };
+		0DEB2DF822DC1BA20042F976 /* Activity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEB2DF722DC1BA20042F976 /* Activity+CoreDataProperties.swift */; };
 		FA20603D9EC7F59AF5431615 /* Pods_CreateTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A99B8388D4053A3B90EE3ED /* Pods_CreateTimer.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,8 +30,8 @@
 		0D7B788122CC61A700384DBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D7B788922CCCBA700384DBD /* CreateTimer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CreateTimer.xcdatamodel; sourceTree = "<group>"; };
 		0D7B788B22CCCD2D00384DBD /* Activity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Activity+CoreDataClass.swift"; path = "CreateTimer/Activity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		0D7B788C22CCCD2D00384DBD /* Activity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Activity+CoreDataProperties.swift"; path = "CreateTimer/Activity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0D7B788F22CCDB0700384DBD /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		0DEB2DF722DC1BA20042F976 /* Activity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Activity+CoreDataProperties.swift"; path = "/Users/johanessteven/Downloads/CreateTimer-withCharts/Activity+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		1F4BA1439DF0B15AA049B875 /* Pods-CreateTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreateTimer.debug.xcconfig"; path = "Target Support Files/Pods-CreateTimer/Pods-CreateTimer.debug.xcconfig"; sourceTree = "<group>"; };
 		2A99B8388D4053A3B90EE3ED /* Pods_CreateTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CreateTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F500EAFB94FD135F3ED9E5DD /* Pods-CreateTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreateTimer.release.xcconfig"; path = "Target Support Files/Pods-CreateTimer/Pods-CreateTimer.release.xcconfig"; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				0D7B788B22CCCD2D00384DBD /* Activity+CoreDataClass.swift */,
-				0D7B788C22CCCD2D00384DBD /* Activity+CoreDataProperties.swift */,
+				0DEB2DF722DC1BA20042F976 /* Activity+CoreDataProperties.swift */,
 				0D7B787422CC61A600384DBD /* CreateTimer */,
 				0D7B787322CC61A600384DBD /* Products */,
 				4ACABC97377F0FAC19B86487 /* Pods */,
@@ -226,6 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DEB2DF822DC1BA20042F976 /* Activity+CoreDataProperties.swift in Sources */,
 				0D7B788D22CCCD2D00384DBD /* Activity+CoreDataClass.swift in Sources */,
 				0D7B789022CCDB0700384DBD /* TableViewController.swift in Sources */,
 				0D7B788A22CCCBA700384DBD /* CreateTimer.xcdatamodeld in Sources */,

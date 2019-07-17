@@ -27,17 +27,55 @@ class TimerViewController: UIViewController {
     var estimationInt = 60
     var spentInt = 0
     
+    var hrs = 0
+    var min = 0
+    var sec = 0
+    var milliSecs = 0
+    var diffHrs = 0
+    var diffMins = 0
+    var diffSecs = 0
+    var diffMilliSecs = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat =  "HH:mm"
-        
+        //deleteAllData()
         let date = dateFormatter.date(from: "00:01")
-        
         timePicker.date = date!
         // Do any additional setup after loading the view.
-        
+
+        //deleteAllData()
+        NotificationCenter.default.addObserver(self, selector: #selector(pauseWhenBackground(noti:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground(noti:)), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+    
+    @objc func pauseWhenBackground(noti: Notification) {
+        self.timer.invalidate()
+        let shared = UserDefaults.standard
+        shared.set(Date(), forKey: "savedTime")
+    }
+    
+    @objc func willEnterForeground(noti: Notification) {
+        if let savedDate = UserDefaults.standard.object(forKey: "savedTime") as? Date {
+            (diffHrs, diffMins, diffSecs) = TimerViewController.getTimeDifference(startDate: savedDate)
+            
+            self.refresh(hours: diffHrs, mins: diffMins, secs: diffSecs)
+        }
+    }
+    
+    static func getTimeDifference(startDate: Date) -> (Int, Int, Int) {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.hour, .minute, .second], from: startDate, to: Date())
+        return(components.hour!, components.minute!, components.second!)
+    }
+    
+    func refresh (hours: Int, mins: Int, secs: Int) {
+        let hrs = hours * 3600
+        let minutes = mins * 60
+        let s = secs
+        seconds += hrs + minutes + s + 1
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(TimerViewController.updateTimer)), userInfo: nil, repeats: true)
         
     }
     
@@ -51,7 +89,7 @@ class TimerViewController: UIViewController {
     }
     
     func runTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(TimerViewController.updateTimer)), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(TimerViewController.updateTimer)), userInfo: nil, repeats: true)
     }
     
     @IBAction func timePickerChanged(_ sender: UIDatePicker) {
@@ -116,7 +154,7 @@ class TimerViewController: UIViewController {
     }
     
     //adding activity to coreData
-    @IBAction func addActivity() {
+    func addActivity() {
         let activity = Activity(entity: Activity.entity(), insertInto: context)
         let name = activities.count+1
         let hourFormat = DateFormatter()
@@ -125,15 +163,31 @@ class TimerViewController: UIViewController {
         
         activity.id = 1
         activity.name = "\(name)"
-        activity.startTime = "\(String(describing: timerLabel.text!))"
-        activity.finishTime = "10:50"
+        activity.spendTime = "\(String(describing: timerLabel.text!))"
         activity.estimatedTime = "\(estimated)"
+        activity.isCancelled = false
+        activities.append(activity)
+        appDelegate.saveContext()
+    }
+ 
+    func addActivity(cancel: Bool, reason: String) {
+        let activity = Activity(entity: Activity.entity(), insertInto: context)
+        let name = activities.count+1
+        let hourFormat = DateFormatter()
+        hourFormat.dateFormat = "HH:mm"
+        let estimated = hourFormat.string(from: timePicker.date)
+        activity.id = 1
+        activity.name = "\(name)"
+        activity.spendTime = "\(String(describing: timerLabel.text!))"
+        activity.estimatedTime = "\(estimated)"
+        activity.isCancelled = true
+        activity.reason = reason
         activities.append(activity)
         appDelegate.saveContext()
     }
     
     private func refresh() {
-        do{
+        do {
             activities = try context.fetch(Activity.fetchRequest())
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
@@ -141,5 +195,28 @@ class TimerViewController: UIViewController {
         
     }
     
+    func deleteAllData()
+    {
+        do {
+            activities = try context.fetch(Activity.fetchRequest())
+            for activity in activities
+            {
+                context.delete(activity)
+            }
+        } catch let error as NSError {
+            print("Detele all data in activity error : \(error) \(error.userInfo)")
+        }
+    }
+    
+    func removeSavedDate() {
+        if (UserDefaults.standard.object(forKey: "savedTime") as? Date) != nil {
+            UserDefaults.standard.removeObject(forKey: "savedTime")
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
 }
 
